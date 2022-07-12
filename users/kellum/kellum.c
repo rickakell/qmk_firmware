@@ -26,7 +26,7 @@ enum keycodes {
     OS_SHFT = SAFE_RANGE,
     OS_CTRL,
     OS_ALT,
-    OS_CMD,
+    OS_GUI,
 
     SW_WIN,  // Switch to next window         (cmd-tab)
     SW_LANG, // Switch to next input language (ctl-spc)
@@ -42,21 +42,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [SYM] = LAYOUT_split_3x5_2(
         KC_ESC,  KC_LBRC, KC_LCBR, KC_LPRN, KC_TILD, KC_CIRC, KC_RPRN, KC_RCBR, KC_RBRC, KC_GRV,
-        KC_MINS, KC_ASTR, KC_EQL,  KC_UNDS, KC_DLR,  KC_HASH, OS_CMD,  OS_ALT,  OS_CTRL, OS_SHFT,
+        KC_MINS, KC_ASTR, KC_EQL,  KC_UNDS, KC_DLR,  KC_HASH, OS_GUI,  OS_ALT,  OS_CTRL, OS_SHFT,
         KC_PLUS, KC_PIPE, KC_AT,   KC_BSLS, KC_PERC, XXXXXXX, KC_AMPR, KC_SCLN, KC_COLN, KC_EXLM,
                                    _______, _______, _______, _______
     ),
 
     [NAV] = LAYOUT_split_3x5_2(
         KC_TAB,  SW_WIN,  TABL,    TABR,    KC_VOLU, RESET,   HOME,    KC_UP,   END,     KC_DEL,
-        OS_SHFT, OS_CTRL, OS_ALT,  OS_CMD,  KC_VOLD, KC_CAPS, KC_LEFT, KC_DOWN, KC_RGHT, KC_BSPC,
+        OS_SHFT, OS_CTRL, OS_ALT,  OS_GUI,  KC_VOLD, KC_CAPS, KC_LEFT, KC_DOWN, KC_RGHT, KC_BSPC,
         SPCL,    SPC_R,   BACK,    FWD,     KC_MPLY, XXXXXXX, KC_PGDN, KC_PGUP, SW_LANG, KC_ENT,
                                    _______, _______, _______, _______
     ),
 
     [NUM] = LAYOUT_split_3x5_2(
         KC_7,    KC_5,    KC_3,    KC_1,    KC_9,    KC_8,    KC_0,    KC_2,    KC_4,    KC_6,
-        OS_SHFT, OS_CTRL, OS_ALT,  OS_CMD,  KC_F11,  KC_F10,  OS_CMD,  OS_ALT,  OS_CTRL, OS_SHFT,
+        OS_SHFT, OS_CTRL, OS_ALT,  OS_GUI,  KC_F11,  KC_F10,  OS_GUI,  OS_ALT,  OS_CTRL, OS_SHFT,
         KC_F7,   KC_F5,   KC_F3,   KC_F1,   KC_F9,   KC_F8,   KC_F12,  KC_F2,   KC_F4,   KC_F6,
                                    _______, _______, _______, _______
     ),
@@ -80,7 +80,7 @@ bool is_oneshot_ignored_key(uint16_t keycode) {
     case OS_SHFT:
     case OS_CTRL:
     case OS_ALT:
-    case OS_CMD:
+    case OS_GUI:
         return true;
     default:
         return false;
@@ -93,7 +93,7 @@ bool sw_lang_active = false;
 oneshot_state os_shft_state = os_up_unqueued;
 oneshot_state os_ctrl_state = os_up_unqueued;
 oneshot_state os_alt_state = os_up_unqueued;
-oneshot_state os_cmd_state = os_up_unqueued;
+oneshot_state OS_GUI_state = os_up_unqueued;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     update_swapper(
@@ -118,7 +118,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         keycode, record
     );
     update_oneshot(
-        &os_cmd_state, KC_LCMD, OS_CMD,
+        &OS_GUI_state, KC_LCMD, OS_GUI,
         keycode, record
     );
 
