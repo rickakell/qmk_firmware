@@ -1,6 +1,10 @@
-#include QMK_KEYBOARD_H
-
+#include "keycodes.h"
+#include "layers.h"
 #include "oneshot.h"
+
+#include "g/keymap_combo.h"
+
+#include QMK_KEYBOARD_H
 
 // Window manipulation
 #define TABL C(S(KC_TAB))
@@ -24,41 +28,6 @@
 #define ZIN C(KC_PLUS)
 #define ZOUT C(KC_MINS)
 #define TFRM C(KC_T)
-
-// Layers
-#define LA_SYM MO(SYM)
-#define LA_NAV MO(NAV)
-#define TO_GME TO(GME)
-#define TO_DEF TO(DEF)
-#define TO_MSE TO(MSE)
-#define LA_SPL MO(SPD)
-#define TO_ART TO(ART)
-
-enum layers {
-    DEF,
-    SYM,
-    NAV,
-    NUM,
-    GME,
-    MSE,
-    ART,
-    SPD,
-};
-//const int SPL = 7;
-
-enum keycodes {
-    // Custom oneshot mod implementation with no timers.
-    OS_SHFT = SAFE_RANGE,
-    OS_CTRL,
-    OS_ALT,
-    OS_GUI,
-
-    SW_WINF, // Switch to next window         (alt-tab)
-    SW_WINB, // Switch to previous window     (alt-shift-tab)
-    SW_LANG, // Switch to next input language (ctl-spc)
-
-    TG_BRSH,
-};
 
 enum {
   TD_TO_MOUSE_TO_GAME = 0,
@@ -86,54 +55,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define TD_RST TD(TD_RESET)
 #define TD_UNRE TD(TD_UNDO_REDO)
 #define TD_CPCT TD(TD_COPY_CUT)
-
-enum combos {
-  SEMIA_GUI,
-  COMMAO_ENT,
-  EDOT_ESC,
-  PU_DEL,
-  YI_BKSPC,
-  FD_ESC,
-  GH_SHFT,
-  CT_CTRL,
-  RN_ALT,
-  SZ_TO_GME,
-  EU_LGUI,
-  NAVLSFT_NUM,
-  LCTLLSFT_DEF,
-  COMBO_LENGTH,
-};
-uint16_t COMBO_LEN = COMBO_LENGTH;
-
-const uint16_t PROGMEM semia_combo[] = {KC_SCLN, KC_A, COMBO_END};
-const uint16_t PROGMEM commao_combo[] = {KC_COMMA, KC_O, COMBO_END};
-const uint16_t PROGMEM edot_combo[] = {KC_E, KC_DOT, COMBO_END};
-const uint16_t PROGMEM pu_combo[] = {KC_P, KC_U, COMBO_END};
-const uint16_t PROGMEM yi_combo[] = {KC_Y, KC_I, COMBO_END};
-const uint16_t PROGMEM fd_combo[] = {KC_F, KC_D, COMBO_END};
-const uint16_t PROGMEM gh_combo[] = {KC_G, KC_H, COMBO_END};
-const uint16_t PROGMEM ct_combo[] = {KC_C, KC_T, COMBO_END};
-const uint16_t PROGMEM rn_combo[] = {KC_R, KC_N, COMBO_END};
-const uint16_t PROGMEM sz_combo[] = {KC_S, KC_Z, COMBO_END};
-const uint16_t PROGMEM eu_combo[] = {KC_E, KC_U, COMBO_END};
-const uint16_t PROGMEM navlsft_combo[] = {KC_LSFT, LA_NAV, COMBO_END};
-const uint16_t PROGMEM lctllsft_combo[] = {KC_LCTL, KC_LSFT, COMBO_END};
-
-combo_t key_combos[] = {
-  [SEMIA_GUI] = COMBO(semia_combo, OS_GUI),
-  [COMMAO_ENT] = COMBO(commao_combo, KC_ENT),
-  [EDOT_ESC] = COMBO(edot_combo, KC_ESC),
-  [PU_DEL] = COMBO(pu_combo, KC_DEL),
-  [YI_BKSPC] = COMBO(yi_combo, KC_BSPC),
-  [FD_ESC] = COMBO(fd_combo, KC_ESC),
-  [GH_SHFT] = COMBO(gh_combo, OS_SHFT),
-  [CT_CTRL] = COMBO(ct_combo, OS_CTRL),
-  [RN_ALT] = COMBO(rn_combo, OS_ALT),
-  [SZ_TO_GME] = COMBO(sz_combo, TO_GME),
-  [EU_LGUI] = COMBO(eu_combo, KC_LGUI),
-  [NAVLSFT_NUM] = COMBO(navlsft_combo, LA_SPL),
-  [LCTLLSFT_DEF] = COMBO(lctllsft_combo, TO_DEF),
-};
 
 void update_swapper(
     bool *active,
