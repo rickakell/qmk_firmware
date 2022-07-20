@@ -31,6 +31,7 @@
 #define TO_GME TO(GME)
 #define TO_DEF TO(DEF)
 #define TO_MSE TO(MSE)
+#define LA_SPL MO(SPD)
 #define TO_ART TO(ART)
 
 enum layers {
@@ -41,7 +42,9 @@ enum layers {
     GME,
     MSE,
     ART,
+    SPD,
 };
+//const int SPL = 7;
 
 enum keycodes {
     // Custom oneshot mod implementation with no timers.
@@ -128,7 +131,7 @@ combo_t key_combos[] = {
   [RN_ALT] = COMBO(rn_combo, OS_ALT),
   [SZ_TO_GME] = COMBO(sz_combo, TO_GME),
   [EU_LGUI] = COMBO(eu_combo, KC_LGUI),
-  [NAVLSFT_NUM] = COMBO(navlsft_combo, TO_MSE),
+  [NAVLSFT_NUM] = COMBO(navlsft_combo, LA_SPL),
   [LCTLLSFT_DEF] = COMBO(lctllsft_combo, TO_DEF),
 };
 
@@ -163,7 +166,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                     _______, KC_F15, KC_F14,  _______
     ),
     [NAV] = LAYOUT_split_3x5_2(
-        TABL,    TABR,    SW_WINF,  SW_WINB, KC_VOLU, KC_CAPS, KC_HOME, KC_UP,   KC_END,  KC_DEL,
+        TABL,    TABR,    SW_WINF,  SW_WINB, KC_VOLU, CAPSWRD, KC_HOME, KC_UP,   KC_END,  KC_DEL,
         OS_GUI,  OS_ALT,  OS_CTRL,  OS_SHFT, KC_TAB,  KC_ESC,  KC_LEFT, KC_DOWN, KC_RGHT, KC_BSPC,
         UND,     RED,     TD_CPCT,  PST,     KC_VOLD, TD_RST,  KC_PGDN, KC_PGUP, SW_LANG, SAVE,
                                     _______, WN_SNIP, KC_ENT, _______
@@ -171,8 +174,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [NUM] = LAYOUT_split_3x5_2(
         XXXXXXX, KC_6,    KC_5,     KC_4,    TD_RST,  KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
         KC_0,    KC_3,    KC_2,     KC_1,    XXXXXXX, KC_F7,   OS_SHFT, OS_CTRL, OS_ALT,  OS_GUI,
-        XXXXXXX, KC_9,    KC_8,     KC_7,    XXXXXXX, KC_F6,   KC_F5,   KC_F4,   KC_F3,   KC_F2,
-                                    _______, CMB_TOG, KC_F13, _______
+        KC_DOT,  KC_9,    KC_8,     KC_7,    KC_F13,  KC_F6,   KC_F5,   KC_F4,   KC_F3,   KC_F2,
+                                    _______, CMB_TOG, KC_F1, _______
     ),
     // Currently optimized for Minecraft
     [GME] = LAYOUT_split_3x5_2(
@@ -194,6 +197,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ACL0, KC_ACL1, KC_BTN1,  KC_BTN2, KC_ACL2, KC_WH_L, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_R,
         KC_TAB,  XXXXXXX, TD_CPCT,  PST,     XXXXXXX, XXXXXXX, KC_BTN3, KC_BTN4, KC_BTN5, KC_BTN6,
                                     KC_LCTL, KC_LSFT, _______, XXXXXXX
+    ),
+    [SPD] = LAYOUT_split_3x5_2(
+        KC_PSCR, KC_MPRV, KC_MPLY, KC_MNXT, KC_PAUS, KC_SLEP, KC_F21, KC_F22, KC_F23, KC_F24,
+        KC_MUTE, XXXXXXX, KC_VOLD, KC_VOLU, KC_INS,  XXXXXXX, KC_F17, KC_F18, KC_F19, KC_F20,
+        KC_SCRL, KC_CAPS, XXXXXXX, XXXXXXX, KC_NUM,  XXXXXXX, KC_F13, KC_F14, KC_F15, KC_F16,
+                                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
     )
 };
 
