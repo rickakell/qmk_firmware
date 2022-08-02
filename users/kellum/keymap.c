@@ -121,9 +121,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [SPD] = LAYOUT_split_3x5_2(
         KC_PSCR, KC_MPRV, KC_MPLY, KC_MNXT, KC_PAUS, KC_SLEP, KC_F21, KC_F22, KC_F23, KC_F24,
-        KC_MUTE, XXXXXXX, KC_VOLD, KC_VOLU, KC_INS,  XXXXXXX, KC_F17, KC_F18, KC_F19, KC_F20,
-        KC_SCRL, KC_CAPS, XXXXXXX, XXXXXXX, KC_NUM,  XXXXXXX, KC_F13, KC_F14, KC_F15, KC_F16,
-                                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+        KC_MUTE, XXXXXXX, KC_VOLD, KC_VOLU, KC_INS,  QK_MAKE, KC_F17, KC_F18, KC_F19, KC_F20,
+        KC_SCRL, KC_CAPS, XXXXXXX, XXXXXXX, KC_NUM,  QK_BOOT, KC_F13, KC_F14, KC_F15, KC_F16,
+                                   XXXXXXX, XXXXXXX, KC_LSFT, XXXXXXX
     )
 };
 
@@ -199,6 +199,7 @@ void update_swapper(
             if (tabish == WINB) {
                 register_code(KC_LSFT);
             }
+            wait_ms(TAP_CODE_DELAY);
             register_code(tabish);
         } else {
             unregister_code(tabish);

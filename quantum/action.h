@@ -29,7 +29,7 @@ extern "C" {
 #endif
 
 #ifndef TAP_CODE_DELAY
-#    define TAP_CODE_DELAY 0
+#    define TAP_CODE_DELAY 20
 #endif
 #ifndef TAP_HOLD_CAPS_DELAY
 #    define TAP_HOLD_CAPS_DELAY 80
