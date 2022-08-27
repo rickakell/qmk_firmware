@@ -80,6 +80,33 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,
                                    LA_NAV,  KC_LSFT, KC_SPC,  LA_SYM
     ),
+    // https://github.com/Apsu/Canary
+    [CAN] = LAYOUT_split_3x5_2(
+        KC_W,    KC_L,    KC_Y,    KC_P,    KC_B,    KC_Z,    KC_F,    KC_O,    KC_U,    KC_QUOT,
+        KC_C,    KC_R,    KC_S,    KC_T,    KC_G,    KC_M,    KC_N,    KC_E,    KC_I,    KC_A,
+        KC_Q,    KC_J,    KC_V,    KC_D,    KC_K,    KC_X,    KC_H,    KC_SLSH, KC_COMMA,KC_DOT,
+                                   LA_NAV,  KC_LSFT, KC_SPC,  LA_SYM
+    ),
+    // https://colemak.com/
+    [COL] = LAYOUT_split_3x5_2(
+        KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN,
+        KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_QUOT,
+        KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMMA,KC_DOT,  KC_SLSH,
+                                   LA_NAV,  KC_LSFT, KC_SPC,  LA_SYM
+    ),
+    [QWE] = LAYOUT_split_3x5_2(
+        KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
+        KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,
+        KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMMA,KC_DOT,  KC_SLSH,
+                                   LA_NAV,  KC_LSFT, KC_SPC,  LA_SYM
+    ),
+    // https://sites.google.com/alanreiser.com/handsdown
+    [HDN] = LAYOUT_split_3x5_2(
+        KC_W,    KC_F,    KC_M,    KC_P,    KC_V,    KC_SCLN, KC_Z,    KC_Q,    KC_J,    KC_K,
+        KC_R,    KC_S,    KC_N,    KC_T,    KC_G,    KC_COMMA,KC_A,    KC_E,    KC_I,    KC_H,
+        KC_X,    KC_C,    KC_L,    KC_D,    KC_B,    KC_DOT,  KC_U,    KC_O,    KC_Y,    KC_QUOT,
+                                   LA_NAV,  KC_LSFT, KC_SPC, LA_SYM
+    ),
     [SYM] = LAYOUT_split_3x5_2(
         KC_GRV,  KC_LBRC, KC_LPRN, KC_LCBR, KC_TILD, KC_CIRC, KC_RCBR, KC_RPRN, KC_RBRC, KC_GRV,
         KC_MINS, KC_ASTR, KC_EQL,  KC_UNDS, KC_DLR,  KC_HASH, OS_SHFT, OS_CTRL, OS_ALT,  OS_GUI,

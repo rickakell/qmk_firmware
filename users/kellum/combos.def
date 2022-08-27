@@ -15,3 +15,9 @@ COMB(sz_combo,       TO_GME,  KC_S, KC_Z)
 COMB(eu_combo,       KC_LGUI, KC_E, KC_U)
 COMB(navlsft_combo,  LA_SPL,  KC_LSFT, LA_NAV)
 COMB(lctllsft_combo, TO_DEF,  KC_LCTL, KC_LSFT)
+
+// Alternate alpha layer combos
+COMB(fcl_combo, TO_CAN, KC_F, KC_C, KC_L)
+COMB(dts_combo, TO_COL, KC_D, KC_T, KC_S)
+COMB(bwz_combo, TO_QWE, KC_B, KC_W, KC_Z)
+COMB(aei_combo, TO_HDN, KC_A, KC_E, KC_I)
