@@ -6,32 +6,10 @@
 
 #include QMK_KEYBOARD_H
 
-// Window manipulation
-#define TABL C(S(KC_TAB))
-#define TABR C(KC_TAB)
-#define WINB S(KC_TAB)
-
-// General utility (Windows)
-#define CUT C(KC_X)
-#define CPY C(KC_C)
-#define PST C(KC_V)
-#define UND C(KC_Z)
-#define RED C(KC_Y)
-#define FND C(KC_F)
-#define SAVE C(KC_S)
-// windows snip shortcut (will copy to clipboard)
-#define WN_SNIP G(S(KC_S))
-// record clip using Windows game bar
-#define RC_CLIP G(A(KC_G))
-
-// Art related
-#define ZIN C(KC_PLUS)
-#define ZOUT C(KC_MINS)
-#define TFRM C(KC_T)
+#include "modifiedkeys.h"
 
 enum {
-  TD_TO_MOUSE_TO_GAME = 0,
-  TD_RESET,
+  TD_RESET = 0,
   TD_UNDO_REDO,
   TD_COPY_CUT,
 };
@@ -45,13 +23,11 @@ void safe_reset(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-  [TD_TO_MOUSE_TO_GAME] = ACTION_TAP_DANCE_DOUBLE(TO_MSE, TO_GME),
   [TD_RESET] = ACTION_TAP_DANCE_FN(safe_reset),
   [TD_UNDO_REDO] = ACTION_TAP_DANCE_DOUBLE(UND, RED),
   [TD_COPY_CUT] = ACTION_TAP_DANCE_DOUBLE(CPY, CUT),
 };
 
-#define MSE_GME TD(TD_TO_MOUSE_TO_GAME)
 #define TD_RST TD(TD_RESET)
 #define TD_UNRE TD(TD_UNDO_REDO)
 #define TD_CPCT TD(TD_COPY_CUT)
@@ -62,13 +38,6 @@ void update_swapper(
     uint16_t tabish,
     uint16_t trigger1,
     uint16_t trigger2,
-    uint16_t keycode,
-    keyrecord_t *record
-);
-
-void toggle_brush (
-    bool *brush_on,
-    uint16_t trigger,
     uint16_t keycode,
     keyrecord_t *record
 );
@@ -116,41 +85,33 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [NAV] = LAYOUT_split_3x5_2(
         TABL,    TABR,    SW_WINF,  SW_WINB, KC_VOLU, CAPSWRD, KC_HOME, KC_UP,   KC_END,  KC_DEL,
         OS_GUI,  OS_ALT,  OS_CTRL,  OS_SHFT, KC_TAB,  KC_ESC,  KC_LEFT, KC_DOWN, KC_RGHT, KC_BSPC,
-        UND,     RED,     TD_CPCT,  PST,     KC_VOLD, TD_RST,  KC_PGDN, KC_PGUP, SW_LANG, SAVE,
+        UND,     RED,     TD_CPCT,  PST,     KC_VOLD, TD_RST,  KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R,
                                     _______, WN_SNIP, KC_ENT, _______
     ),
     [NUM] = LAYOUT_split_3x5_2(
-        XXXXXXX, KC_6,    KC_5,     KC_4,    TD_RST,  KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
-        KC_0,    KC_3,    KC_2,     KC_1,    XXXXXXX, KC_F7,   OS_SHFT, OS_CTRL, OS_ALT,  OS_GUI,
-        KC_DOT,  KC_9,    KC_8,     KC_7,    KC_F13,  KC_F6,   KC_F5,   KC_F4,   KC_F3,   KC_F2,
-                                    _______, CMB_TOG, KC_F1, _______
+        XXXXXXX, KC_9,    KC_8,     KC_7,    TD_RST,  KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
+        KC_0,    KC_3,    KC_2,     KC_1,    KC_DOT,  KC_F7,   OS_SHFT, OS_CTRL, OS_ALT,  OS_GUI,
+        XXXXXXX, KC_6,    KC_5,     KC_4,    KC_F13,  KC_F6,   KC_F5,   KC_F4,   KC_F3,   KC_F2,
+                                    _______, XXXXXXX, KC_F1, _______
     ),
-    // Currently optimized for Minecraft
     [GME] = LAYOUT_split_3x5_2(
-        KC_ESC,  KC_Q,    KC_W,     KC_E,    KC_R,     KC_T,    KC_Y,    KC_UP,   KC_I,    KC_O,
-        KC_LSFT, KC_A,    KC_S,     KC_D,    KC_F,     KC_G,    KC_LEFT, KC_DOWN, KC_RGHT, KC_L,
-        KC_TAB,  KC_Z,    KC_X,     KC_C,    KC_V,     KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,
-                                    KC_LCTL, KC_SPACE, _______, TO_DEF
+        KC_ESC,  KC_Q,    KC_W,     KC_E,    KC_R,     KC_T,     KC_Y,    KC_UP,   KC_I,    KC_O,
+        KC_LSFT, KC_A,    KC_S,     KC_D,    KC_F,     KC_G,     KC_LEFT, KC_DOWN, KC_RGHT, KC_L,
+        KC_TAB,  KC_Z,    KC_X,     KC_C,    KC_V,     KC_B,     KC_N,    KC_M,    KC_COMM, KC_DOT,
+                                    KC_LCTL, KC_SPACE, KC_SPACE, TO_DEF
     ),
     // Currently optimized for Medibang Paint Pro
     [ART] = LAYOUT_split_3x5_2(
         KC_ESC,  SAVE,    ZIN,      ZOUT,    TFRM,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        KC_LEFT, KC_RGHT, TD_UNRE,  TG_BRSH, KC_LBRC,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        KC_LEFT, KC_RGHT, TD_UNRE,  XXXXXXX, KC_LBRC,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         KC_UP,   KC_DOWN, TD_CPCT,  PST,     KC_RBRC,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
                                     KC_LCTL, KC_LSFT,  _______, XXXXXXX
     ),
-    // Very experimental
     [MSE] = LAYOUT_split_3x5_2(
-        KC_ESC,  XXXXXXX, XXXXXXX,  FND,     XXXXXXX, TO_DEF,  KC_WH_U, KC_MS_U, KC_WH_D, XXXXXXX,
-        KC_ACL0, KC_ACL1, KC_BTN1,  KC_BTN2, KC_ACL2, KC_WH_L, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_R,
-        KC_TAB,  XXXXXXX, TD_CPCT,  PST,     XXXXXXX, XXXXXXX, KC_BTN3, KC_BTN4, KC_BTN5, KC_BTN6,
-                                    KC_LCTL, KC_LSFT, _______, XXXXXXX
-    ),
-    [SPD] = LAYOUT_split_3x5_2(
-        KC_PSCR, KC_MPRV, KC_MPLY, KC_MNXT, KC_PAUS, KC_SLEP, KC_F21, KC_F22, KC_F23, KC_F24,
-        KC_MUTE, XXXXXXX, KC_VOLD, KC_VOLU, KC_INS,  QK_MAKE, KC_F17, KC_F18, KC_F19, KC_F20,
-        KC_SCRL, KC_CAPS, XXXXXXX, XXXXXXX, KC_NUM,  QK_BOOT, KC_F13, KC_F14, KC_F15, KC_F16,
-                                   XXXXXXX, XXXXXXX, KC_LSFT, XXXXXXX
+        KC_ESC,  KC_MPRV, KC_MPLY, KC_MNXT, KC_PAUS, XXXXXXX, KC_WH_U, KC_MS_U, KC_WH_D, XXXXXXX,
+        KC_ACL0, KC_ACL1, KC_BTN1, KC_BTN2, KC_ACL2, KC_WH_L, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_R,
+        KC_SCRL, KC_NUM,  TD_CPCT, PST,     XXXXXXX, XXXXXXX, KC_BTN3, KC_BTN4, KC_BTN5, KC_BTN6,
+                                   XXXXXXX, XXXXXXX, KC_LCTL, KC_PSCR
     )
 };
 
@@ -191,8 +152,6 @@ oneshot_state OS_GUI_state = os_up_unqueued;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     update_swapper(&sw_win_active, KC_LALT, KC_TAB, SW_WINF, SW_WINB, keycode, record);
     update_swapper(&sw_win_active, KC_LALT, WINB, SW_WINB, SW_WINF, keycode, record);
-
-    toggle_brush(&brush_state, TG_BRSH, keycode, record);
 
     update_oneshot(&os_shft_state, KC_LSFT, OS_SHFT, keycode, record);
     update_oneshot(&os_ctrl_state, KC_LCTL, OS_CTRL, keycode, record);
@@ -239,25 +198,5 @@ void update_swapper(
     } else if (*active) {
         unregister_code(cmdish);
         *active = false;
-    }
-}
-
-void toggle_brush (
-    bool *brush_on,
-    uint16_t trigger,
-    uint16_t keycode,
-    keyrecord_t *record
-) {
-    if (keycode == trigger) {
-        if (*brush_on) {
-            register_code(KC_E);
-            unregister_code(KC_E);
-            *brush_on = false;
-        }
-        else {
-            register_code(KC_B);
-            unregister_code(KC_B);
-            *brush_on = true;
-        }
     }
 }

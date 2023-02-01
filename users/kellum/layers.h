@@ -8,8 +8,7 @@
 #define LA_SYM MO(SYM)
 #define LA_NAV MO(NAV)
 #define TO_GME TO(GME)
-#define TO_MSE TO(MSE)
-#define LA_SPL MO(SPD)
+#define LA_SPL MO(MSE)
 #define TO_ART TO(ART)
 
 enum layers {
@@ -22,7 +21,6 @@ enum layers {
     NAV, // Navigation
     NUM, // Numbers and Function
     GME, // Game
-    MSE, // Mouse
     ART,
-    SPD, // Special
+    MSE, // Mouse
 };
