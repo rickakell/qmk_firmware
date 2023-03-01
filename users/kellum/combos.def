@@ -6,6 +6,7 @@
 COMB(eu_combo,       KC_LGUI, KC_E, KC_U)
 COMB(navlsft_combo,  LA_SPL,  KC_LSFT, LA_NAV)
 COMB(lctllsft_combo, TO_DEF,  KC_LCTL, KC_LSFT)
+COMB(spacesym_combo, LA_PAD,  KC_SPC,  LA_SYM)
 
 COMB(vwm_combo,      RC_CLIP, KC_V, KC_W, KC_M)
 COMB(qjk_combo,      RC_CLIP, KC_Q, KC_J, KC_K)

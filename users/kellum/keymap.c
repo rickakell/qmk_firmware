@@ -14,7 +14,7 @@ enum {
   TD_COPY_CUT,
 };
 
-void safe_reset(qk_tap_dance_state_t *state, void *user_data) {
+void safe_reset(tap_dance_state_t *state, void *user_data) {
   if (state->count >= 3) {
     // Reset the keyboard if you tap the key more than three times
     reset_keyboard();
@@ -22,7 +22,7 @@ void safe_reset(qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   [TD_RESET] = ACTION_TAP_DANCE_FN(safe_reset),
   [TD_UNDO_REDO] = ACTION_TAP_DANCE_DOUBLE(UND, RED),
   [TD_COPY_CUT] = ACTION_TAP_DANCE_DOUBLE(CPY, CUT),
@@ -80,19 +80,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_GRV,  KC_LBRC, KC_LPRN, KC_LCBR, KC_TILD, KC_CIRC, KC_RCBR, KC_RPRN, KC_RBRC, KC_GRV,
         KC_MINS, KC_ASTR, KC_EQL,  KC_UNDS, KC_DLR,  KC_HASH, OS_SHFT, OS_CTRL, OS_ALT,  OS_GUI,
         KC_PLUS, KC_PIPE, KC_AT,   KC_BSLS, KC_PERC, KC_AMPR, KC_SLSH, KC_QUES, KC_COLN, KC_EXLM,
-                                    _______, KC_F15, KC_F14,  _______
+                                    _______, KC_F14, KC_F15,  _______
     ),
     [NAV] = LAYOUT_split_3x5_2(
-        TABL,    TABR,    SW_WINF,  SW_WINB, KC_VOLU, CAPSWRD, KC_HOME, KC_UP,   KC_END,  KC_DEL,
+        TABL,    TABR,    SW_WINF,  SW_WINB, KC_VOLU, KC_CAPS, KC_HOME, KC_UP,   KC_END,  KC_DEL,
         OS_GUI,  OS_ALT,  OS_CTRL,  OS_SHFT, KC_TAB,  KC_ESC,  KC_LEFT, KC_DOWN, KC_RGHT, KC_BSPC,
         UND,     RED,     TD_CPCT,  PST,     KC_VOLD, TD_RST,  KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R,
                                     _______, WN_SNIP, KC_ENT, _______
     ),
     [NUM] = LAYOUT_split_3x5_2(
-        XXXXXXX, KC_9,    KC_8,     KC_7,    TD_RST,  KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
-        KC_0,    KC_3,    KC_2,     KC_1,    KC_DOT,  KC_F7,   OS_SHFT, OS_CTRL, OS_ALT,  OS_GUI,
-        XXXXXXX, KC_6,    KC_5,     KC_4,    KC_F13,  KC_F6,   KC_F5,   KC_F4,   KC_F3,   KC_F2,
-                                    _______, XXXXXXX, KC_F1, _______
+        KC_F9,   KC_F7,   KC_F1,    KC_F3,   KC_F5,   KC_F4,   KC_F2,   KC_F10,  KC_F6,   KC_F8,
+        KC_9,    KC_7,    KC_1,     KC_3,    KC_5,    KC_4,    KC_2,    KC_0,    KC_6,    KC_8,
+        OS_GUI,  OS_ALT,  OS_CTRL,  OS_SHFT, KC_F11,  KC_F12,  OS_SHFT, OS_CTRL, OS_ALT,  OS_GUI,
+                                    _______, KC_F13,  KC_ENT, _______
+    ),
+    [PAD] = LAYOUT_split_3x5_2(
+        KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,   XXXXXXX, KC_9,    KC_8,     KC_7,    TD_RST,
+        KC_F7,   OS_SHFT, OS_CTRL, OS_ALT,  OS_GUI,   KC_0,    KC_3,    KC_2,     KC_1,    KC_DOT,
+        KC_F6,   KC_F5,   KC_F4,   KC_F3,   KC_F2,    XXXXXXX, KC_6,    KC_5,     KC_4,    KC_F13, // need to do a lot here
+                                    _______, XXXXXXX, KC_0, KC_ENT
     ),
     [GME] = LAYOUT_split_3x5_2(
         KC_ESC,  KC_Q,    KC_W,     KC_E,    KC_R,     KC_T,     KC_Y,    KC_UP,   KC_I,    KC_O,

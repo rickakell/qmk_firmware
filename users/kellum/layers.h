@@ -7,6 +7,7 @@
 #define TO_HDN TO(HDN)
 #define LA_SYM MO(SYM)
 #define LA_NAV MO(NAV)
+#define LA_PAD TO(PAD)
 #define TO_GME TO(GME)
 #define LA_SPL MO(MSE)
 #define TO_ART TO(ART)
@@ -20,6 +21,7 @@ enum layers {
     SYM, // Symbols
     NAV, // Navigation
     NUM, // Numbers and Function
+    PAD, // Number Pad
     GME, // Game
     ART,
     MSE, // Mouse
